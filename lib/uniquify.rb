@@ -16,6 +16,7 @@ module Uniquify
       options.merge!(args.pop) if args.last.kind_of? Hash
       args.each do |name|
         before_validation :on => :create do
+          next if self.send(name).present?
           if block
             ensure_unique(name, &block)
           else
